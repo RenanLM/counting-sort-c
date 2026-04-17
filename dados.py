@@ -2,6 +2,7 @@ import random
 
 QUANTIDADE = 8000
 VALOR_MAXIMO = 10000
+VALOR_MINIMO = -10000
 
 with open("dados_teste.h", "w") as f:
     f.write(f"// Arquivo gerado automaticamente com {QUANTIDADE} inteiros\n")
@@ -9,7 +10,7 @@ with open("dados_teste.h", "w") as f:
     
     for i in range(QUANTIDADE):
         # Gera um número entre 0 e 10000
-        num = random.randint(0, VALOR_MAXIMO)
+        num = random.randint(VALOR_MINIMO, VALOR_MAXIMO)
         f.write(f"{num}")
         
         if i < QUANTIDADE - 1:
