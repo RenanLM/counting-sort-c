@@ -11,6 +11,9 @@
 // Definindo o valor máximo esperado dentro da lista. 
 #define MAX_VALUE 10000 
 
+// Definindo o valor mínimo esperado dentro da lista. 
+#define MIN_VALUE -10000
+
 void counting_sort(int lista[], int size) {
 
     if (size <= 0 || size > MAX_ELEMENTS) { // Verificação de segurança para evitar estouro de buffer
@@ -27,6 +30,23 @@ void counting_sort(int lista[], int size) {
         if (lista[i] > max) {
             max = lista[i];
         }
+    }
+
+    // For para encontrar o valor mínimo na lista
+    int min = lista[0];
+    for (int i = 1; i < size; i++) {
+        if (lista[i] < min) {
+            min = lista[i];
+        }
+    }
+
+    // If para verificar se o valor mínimo é negativo
+    if (min < 0) {
+        // Ajustar os valores para que sejam positivos
+        for (int i = 0; i < size; i++) {
+            lista[i] -= min;
+        }
+        max -= min; // Ajustar o valor máximo também
     }
 
     // Proteção de segurança: se o número for maior que o buffer de contagem, para a execução
@@ -54,6 +74,13 @@ void counting_sort(int lista[], int size) {
 
     for (int i = 0; i < size; i++) {
         lista[i] = saida[i];
+    }
+
+    // Se os valores foram ajustados para serem positivos, reverter o ajuste
+    if (min < 0) {
+        for (int i = 0; i < size; i++) {
+            lista[i] += min;
+        }
     }
 }
 
