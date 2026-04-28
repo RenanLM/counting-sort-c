@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <windows.h>
 
-// Incluindo o arquivo com os dados de teste
-#include "dados_teste.h" 
-
 // Definindo o tamanho máximo da entrada
 #define MAX_ELEMENTS 8000
 
@@ -84,6 +81,24 @@ void counting_sort(int lista[], int size) {
 
 int main() {
     int n = MAX_ELEMENTS;
+    int lista[MAX_ELEMENTS];
+
+    // Abrir e ler arquivo com dados de teste, desconsiderando a primeira linha do arquivo
+    FILE *arquivo = fopen("dados_teste.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro: Não foi possivel abrir o arquivo de entrada.\n");
+        return 1;
+    }
+    else {
+        int i = 0;
+        // Ler a primeira linha (comentário) e descartá-la
+        char linha[256];
+        fgets(linha, sizeof(linha), arquivo);
+        while (i < n && fscanf(arquivo, "%d", &lista[i]) == 1) {
+            i++;
+        }
+        fclose(arquivo);
+    }
 
     // Medir o tempo de execução do counting sort
     LARGE_INTEGER frequency;
