@@ -19,33 +19,10 @@ def carregar_dados(caminho: Path) -> list[int]:
     return numeros
 
 
-def merge_sort(valores: list[int]) -> list[int]:
-    if len(valores) <= 1:
-        return valores
-
-    meio = len(valores) // 2
-    esquerda = merge_sort(valores[:meio])
-    direita = merge_sort(valores[meio:])
-
-    return merge(esquerda, direita)
-
-
-def merge(esquerda: list[int], direita: list[int]) -> list[int]:
-    i = 0
-    j = 0
-    resultado: list[int] = []
-
-    while i < len(esquerda) and j < len(direita):
-        if esquerda[i] <= direita[j]:
-            resultado.append(esquerda[i])
-            i += 1
-        else:
-            resultado.append(direita[j])
-            j += 1
-
-    resultado.extend(esquerda[i:])
-    resultado.extend(direita[j:])
-    return resultado
+def ordenar_com_sort(valores: list[int]) -> list[int]:
+    ordenados = valores.copy()
+    ordenados.sort()
+    return ordenados
 
 
 def salvar_lista(caminho: Path, numeros: list[int]) -> None:
@@ -72,7 +49,7 @@ def comparar_listas(lista_c: list[int], lista_py: list[int]) -> bool:
 
 def main() -> None:
     dados_entrada = carregar_dados(ARQUIVO_ENTRADA)
-    ordenado_python = merge_sort(dados_entrada)
+    ordenado_python = ordenar_com_sort(dados_entrada)
     salvar_lista(ARQUIVO_PY, ordenado_python)
     print(f"Arquivo '{ARQUIVO_PY}' gerado com sucesso.")
 
