@@ -1,16 +1,67 @@
+/**
+ * @file countingSort.c
+ * @brief Implementação do algoritmo Counting Sort para ordenar inteiros lidos de arquivo.
+ *
+ * @details
+ * Aplicação acadêmica desenvolvida para demonstrar o uso do algoritmo Counting Sort
+ * em C, simulando seu funcionamento em um Soc,
+ * incluindo leitura de dados de arquivo, medição de desempenho e gravação da
+ * saída ordenada.
+ *
+ * Copyright (c) 2026.
+ * Permissão de uso, cópia, modificação e distribuição concedida conforme os termos
+ * do arquivo LICENSE deste repositório.
+ *
+ * @section uso Como usar
+ * 1. Gere dados de entrada com: `python dados.py`
+ * 2. Compile no Windows (alvo principal):
+ *    `gcc countingSort.c -o countingSort.exe`
+ * 3. Execute: `countingSort.exe`
+ * 4. O resultado será salvo em `lista_ordenada.txt`.
+ *
+ * @section io Entrada e saída
+ * Entrada: arquivo texto `dados_teste.txt` com inteiros (um por linha),
+ * podendo conter uma primeira linha de comentário.
+ * Saída: arquivo texto `lista_ordenada.txt` com inteiros em ordem crescente.
+ *
+ * @section contexto Contexto de desenvolvimento
+ * Trabalho de disciplina voltado ao estudo de algoritmos de ordenação e análise de
+ * desempenho.
+ *
+ * @section autores Autores/estudantes
+ * Larissa Sales Trece
+ * Renan Lucas de Moura
+ *
+ * @date 2026-04-30
+ * @platform Plataforma alvo: Windows (uso de QueryPerformanceCounter/Windows API).
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 
-// Definindo o tamanho máximo da entrada
+/** @brief Quantidade máxima de elementos suportados no vetor de entrada. */
 #define MAX_ELEMENTS 8000
 
-// Definindo o valor máximo esperado dentro da lista. 
-#define MAX_VALUE 10000 
-
-// Definindo o valor mínimo esperado dentro da lista. 
+/** @brief Maior valor permitido na entrada. */
+#define MAX_VALUE 10000
+/** @brief Menor valor permitido na entrada. */ 
 #define MIN_VALUE -10000
 
+/**
+ * @brief Ordena um vetor de inteiros em ordem crescente usando Counting Sort.
+ *
+ * @details
+ * A função aceita números negativos através de um deslocamento temporário dos dados
+ * quando o menor valor é negativo. Após a ordenação, o deslocamento é revertido.
+ *
+ * @param[in,out] lista Vetor de inteiros a ser ordenado (modificado in-place).
+ * @param[in] size Quantidade de elementos válidos em `lista`.
+ *
+ * @return Não retorna valor.
+ *
+ * @note Variáveis globais afetadas: nenhuma.
+ */
 void counting_sort(int lista[], int size) {
 
     // Verificação de segurança para evitar estouro de buffer
@@ -83,6 +134,20 @@ void counting_sort(int lista[], int size) {
     }
 }
 
+/**
+ * @brief Função principal da aplicação.
+ *
+ * @details
+ * Lê os dados do arquivo de entrada, executa a ordenação, mede tempo de execução,
+ * valida se o vetor está ordenado e grava o resultado em arquivo.
+ *
+ * @param[in] argc Quantidade de argumentos de linha de comando (não utilizado).
+ * @param[in] argv Vetor de argumentos de linha de comando (não utilizado).
+ *
+ * @return `0` em sucesso, `1` em erro de leitura do arquivo de entrada.
+ *
+ * @note Variáveis globais afetadas: nenhuma.
+ */
 
 int main() {
     // Definir o número de elementos a serem ordenados e criar a lista para armazenar os dados
