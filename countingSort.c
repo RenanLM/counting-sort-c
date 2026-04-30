@@ -46,11 +46,12 @@ void counting_sort(int lista[], int size) {
         max -= min; // Ajustar o valor máximo também
     }
     // Proteção de segurança: se o número for maior que o buffer de contagem, para a execução
-    /* if (max > MAX_VALUE) {
+    if (max > MAX_VALUE) {
         printf("Erro: Elemento excede o valor máximo permitido para o array count.\n");
         return;
-    } */
-   for (int i = 0; i <= max; i++) {
+    }
+
+    for (int i = 0; i <= max; i++) {
         count[i] = 0;
     }
     for (int i = 0; i < size; i++) {
