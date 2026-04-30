@@ -13,12 +13,15 @@
 
 void counting_sort(int lista[], int size) {
 
-    if (size <= 0 || size > MAX_ELEMENTS) { // Verificação de segurança para evitar estouro de buffer
+    // Verificação de segurança para evitar estouro de buffer
+    if (size <= 0 || size > MAX_ELEMENTS) { 
         printf("Erro: Tamanho da lista deve ser entre 1 e %d.\n", MAX_ELEMENTS);
         return; 
     }
 
+    // Array de saída (resultado ordenado)
     int saida[MAX_ELEMENTS];
+    // Array de contagem para armazenar a contagem de cada elemento
     int count[MAX_VALUE - MIN_VALUE + 1];
 
     // For para encontrar o valor máximo na lista
@@ -45,28 +48,29 @@ void counting_sort(int lista[], int size) {
         }
         max -= min; // Ajustar o valor máximo também
     }
-    // Proteção de segurança: se o número for maior que o buffer de contagem, para a execução
-    if (max > MAX_VALUE) {
-        printf("Erro: Elemento excede o valor máximo permitido para o array count.\n");
-        return;
-    }
 
-    for (int i = 0; i <= max; i++) {
+    // Inicializar o array de contagem
+   for (int i = 0; i <= max; i++) {
         count[i] = 0;
     }
+
+    // Contar cada elemento da lista
     for (int i = 0; i < size; i++) {
         count[lista[i]]++;
     }
 
+    // Modificar o array de contagem para que ele contenha a posição de cada elemento no array de saída
     for (int i = 1; i <= max; i++) {
         count[i] += count[i - 1];
     }
 
+    // Construir o array de saída
     for (int i = size - 1; i >= 0; i--) {
         saida[count[lista[i]] - 1] = lista[i];
         count[lista[i]]--;
     }
-
+    
+    // Copiar o array de saída para a lista original, agora ordenada
     for (int i = 0; i < size; i++) {
         lista[i] = saida[i];
     }
@@ -81,6 +85,7 @@ void counting_sort(int lista[], int size) {
 
 
 int main() {
+    // Definir o número de elementos a serem ordenados e criar a lista para armazenar os dados
     int n = MAX_ELEMENTS;
     int lista[MAX_ELEMENTS];
 
@@ -105,18 +110,20 @@ int main() {
     LARGE_INTEGER frequency;
     LARGE_INTEGER start;
     LARGE_INTEGER end;
-
     QueryPerformanceFrequency(&frequency);
     QueryPerformanceCounter(&start);
     
     // Ordenando
     counting_sort(lista, n);
-    
+
+    // Fim da ordenação
     QueryPerformanceCounter(&end);
 
+    // Calcular o tempo em milissegundos
     double time_taken_ms = (double)(end.QuadPart - start.QuadPart) * 1000.0 / (double)frequency.QuadPart;
     printf("Tempo de execucao do counting sort para %d elementos: %.3f ms\n", n, time_taken_ms);
 
+    // Verificar se a lista está ordenada corretamente
     int ordenado = 1;
     for(int i = 1; i < n; i++) { 
         if(lista[i] < lista[i-1]) {
@@ -124,7 +131,7 @@ int main() {
             break;
         }
     }
-
+    // Imprimir o resultado da verificação e salvar a lista ordenada em um arquivo de saída
     if(ordenado) {
         printf("Lista ordenada com sucesso.\n");
 
